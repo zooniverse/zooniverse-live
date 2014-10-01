@@ -11,12 +11,12 @@
   (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
 
 (defn format-msgs
-  [{:keys [projects]}]
+  [app]
   (comp (map #(.-data %))
         (map trim-newline)
         (filter #(not (some (apply set %) ["Heartbeat" "Stream Start" ""])))
         (map str->clj)
-        (filter #(contains? (keyword (:project %)) projects))))
+        (filter #(contains? (:projects @app) (keyword (:project %))))))
 
 (defn request
   [url callback-fn & {:keys [type] :or {type "GET"}}]
