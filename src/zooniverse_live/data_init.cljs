@@ -30,7 +30,7 @@
 (defn request
   [url callback-fn & {:keys [type clojurize] :or {type "GET" clojureize true}}]
   (let [xhr (js/XMLHttpRequest.)
-        convert-fn (if clojurize str-clj json)]
+        convert-fn (if clojurize str->clj json)]
     (set! (.-onreadystatechange xhr)
           (fn [_] (when-not (empty? (.-response xhr))
                     (callback-fn (convert-fn (.-response xhr))))))
