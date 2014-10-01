@@ -13,7 +13,7 @@
 (def format-msgs
   (comp (map #(.-data %))
         (map trim-newline)
-        (filter #(not (some (apply set %) ["Heartbeat" "String Start"])))
+        (filter #(not (some (apply set %) ["Heartbeat" "Stream Start" ""])))
         (map str->clj)))
 
 (defn request
