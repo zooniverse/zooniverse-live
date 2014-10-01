@@ -20,8 +20,8 @@
     om/IRender
     (render [_]
       (dom/div nil
-               (om/build classifiers-view data)
-               (om/build project-list data)))))
+               (om/build project-list data)
+               (om/build classifiers-view data)))))
 
 (om/root app-component app-state
          {:target (. js/document (getElementById "app"))})

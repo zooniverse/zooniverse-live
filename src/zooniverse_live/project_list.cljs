@@ -9,7 +9,8 @@
   (reify
     om/IRender
     (render [_]
-      (dom/li #js {:className (name project) :style #js {:color color}} project-name))))
+      (dom/li #js {:className (name project) :style #js {:color color}} 
+              project-name))))
 
 (defn project-list
   "Om component for new project-list"
