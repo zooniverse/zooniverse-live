@@ -1,4 +1,4 @@
-(ns zooniverse-live.websocket
+(ns zooniverse-live.data-init
   (:require [om.core :as om :include-macros true]
             [clojure.string :refer [trim-newline]]
             [om.dom :as dom :include-macros true]
@@ -10,11 +10,13 @@
 (def str->clj
   (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
 
-(def format-msgs
+(defn format-msgs
+  [{:keys [projects]}]
   (comp (map #(.-data %))
         (map trim-newline)
         (filter #(not (some (apply set %) ["Heartbeat" "Stream Start" ""])))
-        (map str->clj)))
+        (map str->clj)
+        (filter #(contains? (keyword (:project %)) projects))))
 
 (defn request
   [url callback-fn & {:keys [type] :or {type "GET"}}]
@@ -27,15 +29,22 @@
       (.setRequestHeader "Accept" "application/json")
       (.send))))
 
+(defn project-list->map
+  [projects]
+  (reduce #(assoc %1 (keyword (:name %2)) %2) {}
+          (map #(assoc %1 :color "#222") projects)))
+
 (defn initial-load
   [app]
-  (let [callback-fn (fn [response] (swap! app assoc :classifications response))]
-    (request "http://event.zooniverse.org/classifications/galaxy_zoo?per_page=7" callback-fn)))
+  (let [classifications-fn (fn [response] (swap! app assoc :classifications response))
+        projects-fn (fn [response] (swap! app assoc :projects (project-list->map response)))]
+    (request "https://api.zooniverse.org/projects/list" projects-fn)
+    (request "http://event.zooniverse.org/classifications/galaxy_zoo?per_page=7" classifications-fn)))
 
-(defn connect-websocket
+(defn data-init
   [app]
   (initial-load app)
-  (let [socket-chan (chan 1 format-msgs)
+  (let [socket-chan (chan 1 (format-msgs app))
         socket (js/WebSocket. "ws://event.zooniverse.org/classifications")]
     (set! (.-onmessage socket) (fn [msg] (go (>! socket-chan msg))))
     (go-loop [msg (<! socket-chan)]

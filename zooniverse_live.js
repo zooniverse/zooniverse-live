@@ -10,7 +10,7 @@ goog.addDependency("../cljs/core/async/impl/timers.js", ['cljs.core.async.impl.t
 goog.addDependency("../cljs/core/async.js", ['cljs.core.async'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.buffers', 'cljs.core.async.impl.protocols', 'cljs.core.async.impl.ioc_helpers', 'cljs.core.async.impl.timers']);
 goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
 goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
-goog.addDependency("../zooniverse_live/websocket.js", ['zooniverse_live.websocket'], ['cljs.core', 'om.dom', 'cljs.core.async', 'om.core', 'clojure.string']);
+goog.addDependency("../zooniverse_live/data_init.js", ['zooniverse_live.data_init'], ['cljs.core', 'om.dom', 'cljs.core.async', 'om.core', 'clojure.string']);
 goog.addDependency("../zooniverse_live/classifiers_view.js", ['zooniverse_live.classifiers_view'], ['cljs.core', 'om.dom', 'om.core', 'clojure.string']);
 goog.addDependency("../zooniverse_live/project_list.js", ['zooniverse_live.project_list'], ['cljs.core', 'om.dom', 'om.core', 'clojure.string']);
-goog.addDependency("../zooniverse_live/core.js", ['zooniverse_live.core'], ['cljs.core', 'om.dom', 'zooniverse_live.project_list', 'zooniverse_live.classifiers_view', 'om.core', 'zooniverse_live.websocket', 'clojure.string']);
+goog.addDependency("../zooniverse_live/core.js", ['zooniverse_live.core'], ['cljs.core', 'om.dom', 'zooniverse_live.data_init', 'zooniverse_live.project_list', 'zooniverse_live.classifiers_view', 'om.core', 'clojure.string']);
