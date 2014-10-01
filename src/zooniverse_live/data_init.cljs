@@ -28,11 +28,11 @@
         (filter #(contains? (enabled-projects @app) (keyword (:project %))))))
 
 (defn request
-  [url callback-fn & {:keys [type clojurize] :or {type "GET" clojureize true}}]
+  [url callback-fn & {:keys [type clojurize] :or {type "GET" clojurize true}}]
   (let [xhr (js/XMLHttpRequest.)
         convert-fn (if clojurize str->clj json)]
     (set! (.-onreadystatechange xhr)
-          (fn [_] (when-not (empty? (.-response xhr))
+          (fn [_] (when (and (= (.-readyState xhr) 4) (.-response xhr))
                     (callback-fn (convert-fn (.-response xhr))))))
     (doto xhr
       (.open type url true)
@@ -48,8 +48,10 @@
 (defn initial-load
   [app]
   (let [classifications-fn (fn [response] (swap! app assoc :classifications response))
-        projects-fn (fn [response] (swap! app assoc :projects (project-list->map response)))]
+        projects-fn (fn [response] (swap! app assoc :projects (project-list->map response)))
+        map-fn (fn [response] (swap! app assoc :map-data response))]
     (request "https://api.zooniverse.org/projects/list" projects-fn)
+    (request "./resources/countries.geo.json" map-fn :clojurize false)
     (request "http://event.zooniverse.org/classifications/galaxy_zoo?per_page=7" classifications-fn)))
 
 (defn data-init

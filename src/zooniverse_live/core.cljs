@@ -4,12 +4,14 @@
             [om.dom :as dom :include-macros true]
             [zooniverse-live.data-init :refer [data-init]]
             [zooniverse-live.classifiers-view :refer [classifiers-view]]
-            [zooniverse-live.project-list :refer [project-list]]))
+            [zooniverse-live.project-list :refer [project-list]]
+            [zooniverse-live.world-map :refer [world-map]]))
 
 (enable-console-print!)
 
 (def app-state (atom {:classifications []
-                      :projects {}}))
+                      :projects {}
+                      :map-data []}))
 
 (defn app-component
   "Om component for new app-component"
@@ -18,6 +20,7 @@
     om/IRender
     (render [_]
       (dom/div nil
+               (om/build world-map data)
                (om/build project-list data)
                (om/build classifiers-view data)))))
 

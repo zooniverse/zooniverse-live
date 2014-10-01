@@ -2,20 +2,14 @@
   (:require [om.core :as om :include-macros true]
             [clojure.string :refer [trim-newline]]
             [om.dom :as dom :include-macros true]
-            [zooniverse-live.data-init :refer [request]]))
+            [zooniverse-live.data-init :refer [request]]
+            [cljs.core.async :refer [chan <! >!]])
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
-(def geo-json-url "./resources/countries.geo.json")
-
-(defn geo-json-data []
-  (request geo-json-url #(.log js/console "got data") :clojurize false))
-
-(defn world-map []
+(defn world-map
   "Om component for new world-map"
   [app owner]
   (reify
-    om/IWillMount
-    (will-mount [_]
-      (geo-json-data))
     om/IRender
     (render [_]
       (dom/svg #js {:width 800 :height 400}
