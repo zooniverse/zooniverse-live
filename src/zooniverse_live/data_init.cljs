@@ -14,7 +14,7 @@
   [app]
   (comp (map #(.-data %))
         (map trim-newline)
-        (filter #(not (some (apply set %) ["Heartbeat" "Stream Start" ""])))
+        (filter #(not (or (= %  "Heartbeat") (= % "Stream Start"))))
         (map str->clj)
         (filter #(contains? (:projects @app) (keyword (:project %))))))
 
