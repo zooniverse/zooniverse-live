@@ -9,8 +9,9 @@
 (enable-console-print!)
 
 (def app-state (atom {:classifications []
-                      :projects {:galaxy_zoo {:color "orange" :name "Galaxy Zoo"}
-                                 :planet_hunter {:color "blue" :name "Planet Hunters"}}}))
+                      :projects {:galaxy_zoo {:color "orange" :project-name "Galaxy Zoo"}
+                                 :planet_hunter {:color "blue" :project-name "Planet Hunters"}}}))
+
 
 (defn app-component
   "Om component for new app-component"

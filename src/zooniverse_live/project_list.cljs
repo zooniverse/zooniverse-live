@@ -5,11 +5,11 @@
 
 (defn project
   "Om component for new project"
-  [[project {:keys [color name]}] owner]
+  [[project {:keys [color project-name]}] owner]
   (reify
     om/IRender
     (render [_]
-      (dom/li #js {:className project :style #js {:color color}} name))))
+      (dom/li #js {:className (name project) :style #js {:color color}} project-name))))
 
 (defn project-list
   "Om component for new project-list"
