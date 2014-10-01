@@ -15,7 +15,7 @@
 
 (defn merge-color
   [projects]
-  (fn [{:strs [project] :as classification}]
+  (fn [{:keys [project] :as classification}]
     (assoc classification "color" (get-in projects [(keyword project) :color]))))
 
 (defn classifications-slice
@@ -23,8 +23,7 @@
   (map (merge-color projects) (take-last 7 classifications)))
 
 (defn classifier-view
-  [{:strs [project color country_name city_name] :as classification} owner]
-  (println classification)
+  [{:keys [project color country_name city_name] :as classification} owner]
   (reify
     om/IRender
     (render [this]
