@@ -13,20 +13,25 @@
   [project]
   (str "/images/" project ".jpg"))
 
+(defn merge-color
+  [projects]
+  (fn [{:strs [project] :as classification}]
+    (assoc classification "color" (get-in projects [(keyword project) :color]))))
+
 (defn classifications-slice
-  [{:keys [classifications]}]
-  (println classifications)
-  (take-last 7 classifications))
+  [{:keys [classifications projects]}]
+  (map (merge-color projects) (take-last 7 classifications)))
 
 (defn classifier-view
-  [{:strs [project country_name city_name] :as classification} owner]
+  [{:strs [project color country_name city_name] :as classification} owner]
   (println classification)
   (reify
     om/IRender
     (render [this]
-      (dom/li #js {:className "classifier-view-item"} (dom/div #js {:className project}
-                           (dom/h2 nil (location city_name country_name))
-                           (dom/img #js {:src (image-src project)} nil))))))
+      (dom/li #js {:className "classifier-view-item" :style #js {:background color}}
+              (dom/div #js {:className project}
+                       (dom/h2 nil (location city_name country_name))
+                       (dom/img #js {:src (image-src project)} nil))))))
 
 (defn classifiers-view
   [app owner]
