@@ -24,7 +24,7 @@
   (reify
     om/IRender
     (render [this]
-      (dom/li nil (dom/div #js {:className project}
+      (dom/li #js {:className "classifier-view-item"} (dom/div #js {:className project}
                            (dom/h2 nil (location city_name country_name))
                            (dom/img #js {:src (image-src project)} nil))))))
 
@@ -35,5 +35,5 @@
     (render [this]
       (dom/div nil
                (dom/h1 nil "Classifiers")
-               (apply dom/ul nil
+               (apply dom/ul #js {:className "classifiers-view"}
                       (om/build-all classifier-view (classifications-slice app)))))))

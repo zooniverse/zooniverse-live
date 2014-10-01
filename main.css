@@ -1,0 +1,22 @@
+.classifiers-view {
+    display: block;
+    width: 100%;
+    overflow: auto;
+}
+
+.classifier-view-item {
+    background-color: grey;
+    display: inline-block;
+    width: 14%;x
+    overflow: auto;
+    float: left;
+}
+
+.classifier-view-item h2 {
+    font-size: 16px;
+    height: 40px;
+}
+
+.classifier-view-item img {
+    width: 100%;
+}
