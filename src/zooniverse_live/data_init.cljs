@@ -7,6 +7,11 @@
 
 
 (enable-console-print!)
+
+(defn enabled-projects
+  [{:keys [projects]}]
+  (select-keys projects (for [[k v] projects :when (:enabled v)] k)))
+
 (def str->clj
   (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
 
@@ -16,7 +21,7 @@
         (map trim-newline)
         (filter #(not (or (= %  "Heartbeat") (= % "Stream Start"))))
         (map str->clj)
-        (filter #(contains? (:projects @app) (keyword (:project %))))))
+        (filter #(contains? (enabled-projects @app) (keyword (:project %))))))
 
 (defn request
   [url callback-fn & {:keys [type] :or {type "GET"}}]
@@ -31,8 +36,9 @@
 
 (defn project-list->map
   [projects]
-  (reduce #(assoc %1 (keyword (:name %2)) %2) {}
-          (map #(assoc %1 :color "#222") projects)))
+  (->>  (map #(assoc % :color "#222") projects)
+        (map #(assoc % :enabled true))
+        (reduce #(assoc %1 (keyword (:name %2)) %2) {})))
 
 (defn initial-load
   [app]
