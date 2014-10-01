@@ -12,8 +12,12 @@
   [{:keys [projects]}]
   (select-keys projects (for [[k v] projects :when (:enabled v)] k)))
 
+(defn json
+  [str]
+  (.parse js/JSON str))
+
 (def str->clj
-  (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
+  (comp #(js->clj % :keywordize-keys true) json))
 
 (defn format-msgs
   [app]
@@ -24,11 +28,12 @@
         (filter #(contains? (enabled-projects @app) (keyword (:project %))))))
 
 (defn request
-  [url callback-fn & {:keys [type] :or {type "GET"}}]
-  (let [xhr (js/XMLHttpRequest.)]
+  [url callback-fn & {:keys [type clojurize] :or {type "GET" clojureize ture}}]
+  (let [xhr (js/XMLHttpRequest.)
+        convert-fn (if clojurize str-clj json)]
     (set! (.-onreadystatechange xhr)
           (fn [_] (when-not (empty? (.-response xhr))
-                    (callback-fn (str->clj (.-response xhr))))))
+                    (callback-fn (convert-fn (.-response xhr))))))
     (doto xhr
       (.open type url true)
       (.setRequestHeader "Accept" "application/json")
