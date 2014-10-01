@@ -9,7 +9,7 @@
     (println (.-data msg))
     (let [msg (trim-newline (.-data msg))]
       (when-not (some #{msg} ["Heartbeat" "String Start"])
-        (swap! app update-in [:classifiers] conj (js->clj (.parse js/JSON msg)))))))
+        (swap! app update-in [:classifications] conj (js->clj (.parse js/JSON msg)))))))
 
 
 (defn connect-websocket
