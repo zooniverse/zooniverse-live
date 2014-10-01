@@ -28,7 +28,7 @@
         (filter #(contains? (enabled-projects @app) (keyword (:project %))))))
 
 (defn request
-  [url callback-fn & {:keys [type clojurize] :or {type "GET" clojureize ture}}]
+  [url callback-fn & {:keys [type clojurize] :or {type "GET" clojureize true}}]
   (let [xhr (js/XMLHttpRequest.)
         convert-fn (if clojurize str-clj json)]
     (set! (.-onreadystatechange xhr)
