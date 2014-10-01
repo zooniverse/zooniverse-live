@@ -16,7 +16,7 @@
 (defn merge-color
   [projects]
   (fn [{:keys [project] :as classification}]
-    (assoc classification "color" (get-in projects [(keyword project) :color]))))
+    (assoc classification :color (get-in projects [(keyword project) :color]))))
 
 (defn classifications-slice
   [{:keys [classifications projects]}]
