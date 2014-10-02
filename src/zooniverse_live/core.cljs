@@ -11,7 +11,7 @@
 
 (def app-state (atom {:classifications []
                       :projects {}
-                      :map-data []}))
+                      :map-data (js-obj)}))
 
 (defn app-component
   "Om component for new app-component"
