@@ -1,36 +1,58 @@
 /* CSS Mini Reset */
 
 html, body, div, form, fieldset, legend, label {
- margin: 0;
- padding: 0; 
+  margin: 0;
+  padding: 0; 
 }
 
 h1, h2, h3, h4, h5, h6, th, td, caption { font-weight: normal; }
 
 img { border: 0; }
 
+body: {
+  line-height: 0;
+  margin: 0;
+  font-size: 0;
+  letter-spacing: -1;
+}
+
+
+#map {
+  display: inline-block;
+  width: 80%;
+}
+
+#projects {
+  vertical-align: top;
+  display: inline-block;
+  width: 20%;
+}
+
+#classifiers {
+}
+
 
 .classifiers-view {
-    display: flex;
-    width: 100%;
-    overflow: auto;
-    padding: 0;
-    max-height: 265px;
+  display: flex;
+  width: 100%;
+  overflow: auto;
+  padding: 0;
+  max-height: 265px;
 }
 
 .classifier-view-item {
-    background-color: grey;
-    display: inline-block;
-    flex-grow: 1;
-    overflow: auto;
-    float: left;
+  background-color: grey;
+  display: inline-block;
+  flex-grow: 1;
+  overflow: auto;
+  float: left;
 }
 
 .classifier-view-item h2 {
-    font-size: 16px;
-    height: 40px;
+  font-size: 16px;
+  height: 40px;
 }
 
 .classifier-view-item img {
-    width: 100%;
+  width: 100%;
 }

@@ -21,4 +21,4 @@
       (dom/div nil 
                (dom/h1 nil "Project List"
                        (apply dom/ul nil
-                               (om/build-all project (:projects data))))))))
+                               (om/build-all project (take 5 (:projects data)))))))))
