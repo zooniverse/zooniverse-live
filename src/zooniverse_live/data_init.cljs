@@ -41,7 +41,7 @@
 
 (defn project-list->map
   [projects]
-  (->>  (map #(assoc % :color "#222") projects)
+  (->>  (map #(assoc % :color "#555555") projects)
         (map #(assoc % :enabled true))
         (filter #(not (contains? project-blacklist (:name %))))
         (reduce #(assoc %1 (keyword (:name %2)) %2) {})))

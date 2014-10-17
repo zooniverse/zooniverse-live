@@ -43,6 +43,14 @@ body: {
   margin: 0;
 }
 
+#projects .editor {
+  display: none;
+}
+
+#projects .edit .editor {
+  display: block;
+}
+
 #projects .projects-title button {
   display: inline;
   margin-left: 20px;

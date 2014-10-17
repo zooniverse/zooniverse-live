@@ -10,7 +10,7 @@
 
 (def app-state (atom {:classifications []
                       :projects {}
-                      :map-data (js-obj)}))
+                      :edit-mode false}))
 
 (om/root project-list app-state
          {:target (. js/document (getElementById "projects"))})
