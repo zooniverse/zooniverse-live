@@ -8,15 +8,14 @@
 
 (enable-console-print!)
 
-(def project-blacklist #{:hard_cell :cancer_gene_runner})
+(def project-blacklist #{"hard_cell" "cancer_gene_runner"})
 
 (defn enabled-projects
   [{:keys [projects]}]
   (select-keys projects
                (for [[k v] projects
-                     :when (and (:enabled v)
-                                (not (contains? project-blacklist k)))]
-                 k)))
+                     :when (:enabled v)]
+               k)))
 
 (def str->clj
   (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
@@ -44,6 +43,7 @@
   [projects]
   (->>  (map #(assoc % :color "#222") projects)
         (map #(assoc % :enabled true))
+        (filter #(not (contains? project-blacklist (:name %))))
         (reduce #(assoc %1 (keyword (:name %2)) %2) {})))
 
 (defn initial-load
