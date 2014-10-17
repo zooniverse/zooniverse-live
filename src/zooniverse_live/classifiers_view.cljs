@@ -1,7 +1,7 @@
 (ns zooniverse-live.classifiers-view
   (:require [om.core :as om :include-macros true]
             [clojure.string :refer [trim-newline]]
-            [om.dom :as dom :include-macros true]))
+            [om-tools.dom :as dom :include-macros true]))
 
 (defn location
   [city country]
@@ -27,17 +27,16 @@
   (reify
     om/IRender
     (render [this]
-      (dom/li #js {:className "classifier-view-item" :style #js {:background color}}
-              (dom/div #js {:className project}
+      (dom/li {:className "classifier-view-item" :style {:background color}}
+              (dom/div {:className project}
                        (dom/h2 nil (location city_name country_name))
-                       (dom/img #js {:src (image-src project)} nil))))))
+                       (dom/img {:src (image-src project)}))))))
 
 (defn classifiers-view
   [app owner]
   (reify
     om/IRender
     (render [this]
-      (dom/div nil
-               (dom/h1 nil "Classifiers")
-               (apply dom/ul #js {:className "classifiers-view"}
-                      (om/build-all classifier-view (classifications-slice app)))))))
+      (dom/div (dom/h1 "Classifiers")
+               (dom/ul {:className "classifiers-view"}
+                       (om/build-all classifier-view (classifications-slice app)))))))

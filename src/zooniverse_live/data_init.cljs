@@ -8,16 +8,18 @@
 
 (enable-console-print!)
 
+(def project-blacklist #{:hard_cell :cancer_gene_runner})
+
 (defn enabled-projects
   [{:keys [projects]}]
-  (select-keys projects (for [[k v] projects :when (:enabled v)] k)))
-
-(defn json
-  [str]
-  (.parse js/JSON str))
+  (select-keys projects
+               (for [[k v] projects
+                     :when (and (:enabled v)
+                                (not (contains? project-blacklist k)))]
+                 k)))
 
 (def str->clj
-  (comp #(js->clj % :keywordize-keys true) json))
+  (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
 
 (defn format-msgs
   [app]
@@ -28,12 +30,11 @@
         (filter #(contains? (enabled-projects @app) (keyword (:project %))))))
 
 (defn request
-  [url callback-fn & {:keys [type clojurize] :or {type "GET" clojurize true}}]
-  (let [xhr (js/XMLHttpRequest.)
-        convert-fn (if clojurize str->clj json)]
+  [url callback-fn & {:keys [type] :or {type "GET"}}]
+  (let [xhr (js/XMLHttpRequest.)]
     (set! (.-onreadystatechange xhr)
           (fn [_] (when (and (= (.-readyState xhr) 4) (.-response xhr))
-                    (callback-fn (convert-fn (.-response xhr))))))
+                    (callback-fn (str->clj (.-response xhr))))))
     (doto xhr
       (.open type url true)
       (.setRequestHeader "Accept" "application/json")
