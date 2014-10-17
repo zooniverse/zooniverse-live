@@ -5,6 +5,12 @@
             [om-tools.dom :as dom :include-macros true]
             [cljs.core.async :refer [<! put! chan]]))
 
+
+(defn put-to-chan
+  [chan & args]
+  (fn [e]
+    (apply put! chan args)))
+
 (defn project
   "Om component for new project"
   [[project {:keys [color display_name enabled]}] owner]
@@ -15,7 +21,7 @@
               display_name
               (dom/div {:className "editor"}
                (dom/label "Enabled: "
-                          (dom/input {:type "checkbox" :checked enabled :onChange (fn [e] (put! disable project))}))
+                          (dom/input {:type "checkbox" :checked enabled :onChange (put-to-chan disable project)}))
                (dom/label "Color: "
                           (dom/input {:type "color" :value color :onChange (fn [e] (put! color-chan [project (.-value (.-target e))]))})))))))
 
@@ -47,7 +53,7 @@
       (dom/div
        (dom/div {:className "projects-title"}
                 (dom/h1 "Projects")
-                (dom/button {:type "button" :onClick (fn [e] (put! edit-mode true))} "Edit"))
+                (dom/button {:type "button" :onClick (put-to-chan edit-mode true)} "Edit"))
        (dom/ul {:className (when (:edit-mode data) "edit")}
                (om/build-all project
                              (filter #(or (:edit-mode data) (:enabled (second %))) (:projects data))
