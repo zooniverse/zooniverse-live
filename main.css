@@ -28,14 +28,40 @@ body: {
   width: 20%;
 }
 
-#classifiers {
+#projects ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: none;
 }
 
+#projects .projects-title {
+  width: 250px;
+}
+
+#projects .projects-title h1 {
+  display: inline;
+  margin: 0;
+}
+
+#projects .projects-title button {
+  display: inline;
+  margin-left: 20px;
+  position: relative;
+  top: -5px;
+}
+
+#projects li {
+  font-size: 18px;
+}
+
+#classifiers {
+  vertical-align: bottom;
+}
 
 .classifiers-view {
   display: flex;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
   padding: 0;
   max-height: 265px;
 }
