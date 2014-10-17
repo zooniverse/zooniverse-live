@@ -62,29 +62,49 @@ body: {
   font-size: 18px;
 }
 
-#classifiers {
+/*
+#classifications {
   vertical-align: bottom;
+}
+*/
+
+#classifications h2 {
+  color: white;
+  text-align: center;
+  margin: 0;
+  vertical-align: center;
+}
+
+#classifications .classification {
+  border: 3px solid;
+  box-sizing: border-box;
 }
 
 .classifiers-view {
+  position: relative;
+  left: -3%;
   display: flex;
-  width: 100%;
+  width: 110%;
   overflow: hidden;
   padding: 0;
   max-height: 265px;
+  line-height: 0;
+  margin: 0;
+  font-size: 0;
+  letter-spacing: -1;
 }
 
 .classifier-view-item {
   background-color: grey;
-  display: inline-block;
   flex-grow: 1;
   overflow: auto;
-  float: left;
+  display: inline-block;
+  width: 14%;
 }
 
 .classifier-view-item h2 {
   font-size: 16px;
-  height: 40px;
+  padding: 10px;
 }
 
 .classifier-view-item img {

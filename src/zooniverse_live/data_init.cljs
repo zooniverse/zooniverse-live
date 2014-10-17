@@ -10,12 +10,25 @@
 
 (def project-blacklist #{"hard_cell" "cancer_gene_runner"})
 
+(defn randint
+  [min max]
+  (.floor js/Math (-> (.random js/Math)
+                      (* (- max min))
+                      (+ min))))
+
+(defn random-color
+  ([pastel]
+     (let [color (map #(apply randint %1) (repeat 3 [0 255]))]
+       (apply str "#" (map #(.toString (.floor js/Math (/ (+ %1 %2) 2)) 16)
+                           color pastel))))
+  ([] (random-color [255 255 255])))
+
 (defn enabled-projects
   [{:keys [projects]}]
   (select-keys projects
                (for [[k v] projects
                      :when (:enabled v)]
-               k)))
+                 k)))
 
 (def str->clj
   (comp #(js->clj % :keywordize-keys true) #(.parse js/JSON %)))
@@ -41,10 +54,10 @@
 
 (defn project-list->map
   [projects]
-  (->>  (map #(assoc % :color "#555555") projects)
-        (map #(assoc % :enabled true))
-        (filter #(not (contains? project-blacklist (:name %))))
-        (reduce #(assoc %1 (keyword (:name %2)) %2) {})))
+  (->> (map #(assoc % :color (random-color [120 120 120])) projects)
+       (map #(assoc % :enabled true))
+       (filter #(not (contains? project-blacklist (:name %))))
+       (reduce #(assoc %1 (keyword (:name %2)) %2) {})))
 
 (defn initial-load
   [app]

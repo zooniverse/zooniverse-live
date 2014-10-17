@@ -4,9 +4,9 @@
             [om-tools.dom :as dom :include-macros true]))
 
 (defn location
-  [city country]
+  [city country code]
   (if city
-    (str city ", " country)
+    (str city ", " code)
     country))
 
 (defn image-src
@@ -23,13 +23,13 @@
   (map (merge-color projects) (take-last 7 classifications)))
 
 (defn classifier-view
-  [{:keys [project color country_name city_name] :as classification} owner]
+  [{:keys [project color country_code country_name city_name]} owner]
   (reify
     om/IRender
     (render [this]
       (dom/li {:className "classifier-view-item" :style {:background color}}
-              (dom/div {:className project}
-                       (dom/h2 nil (location city_name country_name))
+              (dom/div {:className "classification" :style {:border-color color}}
+                       (dom/h2 (location city_name country_name country_code))
                        (dom/img {:src (image-src project)}))))))
 
 (defn classifiers-view
