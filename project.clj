@@ -4,6 +4,7 @@
 
   :dependencies [[org.clojure/clojure "1.7.0-alpha1"]
                  [org.clojure/clojurescript "0.0-2342"]
+                 [prismatic/om-tools "0.3.6"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [om "0.7.1"]]
 

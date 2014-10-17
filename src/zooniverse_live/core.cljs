@@ -13,18 +13,10 @@
                       :projects {}
                       :map-data (js-obj)}))
 
-(defn app-component
-  "Om component for new app-component"
-  [data owner]
-  (reify
-    om/IRender
-    (render [_]
-      (dom/div nil
-               (om/build world-map data)
-               (om/build project-list data)
-               (om/build classifiers-view data)))))
+(om/root project-list app-state
+         {:target (. js/document (getElementById "projects"))})
 
-(om/root app-component app-state
-         {:target (. js/document (getElementById "app"))})
+(om/root classifiers-view app-state
+         {:target (. js/document (getElementById "classifications"))})
 
 (data-init app-state)
