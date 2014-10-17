@@ -48,10 +48,8 @@
 (defn initial-load
   [app]
   (let [classifications-fn (fn [response] (swap! app assoc :classifications response))
-        projects-fn (fn [response] (swap! app assoc :projects (project-list->map response)))
-        map-fn (fn [response] (swap! app assoc :map-data response))]
+        projects-fn (fn [response] (swap! app assoc :projects (project-list->map response)))]
     (request "https://api.zooniverse.org/projects/list" projects-fn)
-    (request "./resources/countries.geo.json" map-fn :clojurize false)
     (request "http://event.zooniverse.org/classifications/galaxy_zoo?per_page=7" classifications-fn)))
 
 (defn data-init
