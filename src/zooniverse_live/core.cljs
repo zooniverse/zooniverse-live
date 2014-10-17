@@ -4,8 +4,7 @@
             [om.dom :as dom :include-macros true]
             [zooniverse-live.data-init :refer [data-init]]
             [zooniverse-live.classifiers-view :refer [classifiers-view]]
-            [zooniverse-live.project-list :refer [project-list]]
-            [zooniverse-live.world-map :refer [world-map]]))
+            [zooniverse-live.project-list :refer [project-list]]))
 
 (enable-console-print!)
 
