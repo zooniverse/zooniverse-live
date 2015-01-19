@@ -25,7 +25,7 @@
      (> adj-lat 180) 0
      :else (- height (* adj-lat(/ height 180))))))
 
-(defn long->screen-x
+(defn long->canvas-x
   [long canvas]
   (let [adj-long (+ (* 1 long) 180)
         width (parse-int (.-width canvas))]
@@ -53,7 +53,7 @@
       (.beginPath ctx)
       (doseq [pt shape]
         (let [lat (lat->canvas-y (parse-int (:lat pt)) canvas)
-              long (long->screen-x (parse-int (:lon pt)) canvas)]
+              long (long->canvas-x (parse-int (:lon pt)) canvas)]
           (.lineTo ctx long lat)))
       (.fill ctx)
       (.stroke ctx))))
@@ -66,7 +66,7 @@
     (set! (.-fillStyle ctx) points-color)
     (doseq [{:keys [latitude longitude]} classifications]
       (let [x (lat->canvas-y latitude canvas)
-            y (long->screen-x longitude canvas)]
+            y (long->canvas-x longitude canvas)]
         (.beginPath ctx)
         (.arc ctx y x radius (* 2 pi) false)
         (.fill ctx)))))
