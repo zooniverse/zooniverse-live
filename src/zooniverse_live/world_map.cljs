@@ -21,18 +21,18 @@
   (let [adj-lat  (+ (* 1 lat) 90)
         height (parse-int (.-height canvas))]
     (cond
-     (= adj-lat 0) height
-     (> adj-lat 180) 0
-     :else (- height (* adj-lat(/ height 180))))))
+      (= adj-lat 0) height
+      (> adj-lat 180) 0
+      :else (- height (* adj-lat(/ height 180))))))
 
 (defn long->canvas-x
   [long canvas]
   (let [adj-long (+ (* 1 long) 180)
         width (parse-int (.-width canvas))]
     (cond
-     (= adj-long 0) 0
-     (> adj-long 360) width
-     :else (* adj-long (/ width 360)))))
+      (= adj-long 0) 0
+      (> adj-long 360) width
+      :else (* adj-long (/ width 360)))))
 
 (defn draw-ocean!
   [canvas]
@@ -44,19 +44,28 @@
                (parse-int (.-width canvas))
                (parse-int (.-height canvas)))))
 
+(defn draw-polygon!
+  [ctx canvas pts]
+  (.beginPath ctx)
+  (doseq [pt pts]
+    
+    (let [lat (lat->canvas-y (parse-int (second pt)) canvas)
+          long (long->canvas-x (parse-int (first pt)) canvas)]
+      (.lineTo ctx long lat)))
+  (.closePath ctx)
+  (.fill ctx)
+  (.stroke ctx))
+
 (defn draw-land!
   [canvas map-data]
   (let [ctx (ctx canvas)
-        shapes map-data]
+        countries map-data]
     (set! (.-fillStyle ctx) land-color)
-    (doseq [shape shapes]
-      (.beginPath ctx)
-      (doseq [pt shape]
-        (let [lat (lat->canvas-y (parse-int (:lat pt)) canvas)
-              long (long->canvas-x (parse-int (:lon pt)) canvas)]
-          (.lineTo ctx long lat)))
-      (.fill ctx)
-      (.stroke ctx))))
+    (doseq [{:keys [properties geometry]} countries]
+      (condp = (:type geometry)
+        "Polygon" (draw-polygon! ctx canvas (apply concat (:coordinates geometry)))
+        "MultiPolygon" (doseq [pts (apply concat (:coordinates geometry))]
+                         (draw-polygon! ctx canvas pts))))))
 
 (defn draw-classifiers!
   [classifications canvas]
@@ -78,12 +87,11 @@
     om/IDidMount
     (did-mount [_]
       (let [canvas (om/get-node owner "c")]
-        (draw-ocean! canvas)
         (draw-land! canvas (:map-data data))))
     om/IWillUpdate
     (will-update [_ next-props next-state]
       (draw-classifiers! (:classifications data) (om/get-node owner "c")))
     om/IRender
     (render [_]
-      (dom/canvas {:className "world-map" :ref "c" :width 800 :height 400}
+      (dom/canvas {:className "world-map" :ref "c" :width 1800 :height 900}
                   "Your browser does not support the canvas element"))))

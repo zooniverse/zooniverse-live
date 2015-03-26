@@ -68,10 +68,10 @@
 
 (defn data-init
   [app]
-  (initial-load app)
-  (let [socket-chan (chan 1 (format-msgs app))
-        socket (js/WebSocket. "ws://event.zooniverse.org/classifications")]
-    (set! (.-onmessage socket) (fn [msg] (go (>! socket-chan msg))))
-    (go-loop [msg (<! socket-chan)]
-      (swap! app update-in [:classifications] conj msg)
-      (recur (<! socket-chan)))))
+  (comment (initial-load app)
+   (let [socket-chan (chan 1 (format-msgs app))
+         socket (js/WebSocket. "ws://event.zooniverse.org/classifications")]
+     (set! (.-onmessage socket) (fn [msg] (go (>! socket-chan msg))))
+     (go-loop [msg (<! socket-chan)]
+       (swap! app update-in [:classifications] conj msg)
+       (recur (<! socket-chan))))))
