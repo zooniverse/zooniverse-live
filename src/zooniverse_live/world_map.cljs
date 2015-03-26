@@ -48,9 +48,8 @@
   [ctx canvas pts]
   (.beginPath ctx)
   (doseq [pt pts]
-    
-    (let [lat (lat->canvas-y (parse-int (second pt)) canvas)
-          long (long->canvas-x (parse-int (first pt)) canvas)]
+    (let [lat (lat->canvas-y (second pt) canvas)
+          long (long->canvas-x (first pt) canvas)]
       (.lineTo ctx long lat)))
   (.closePath ctx)
   (.fill ctx)
