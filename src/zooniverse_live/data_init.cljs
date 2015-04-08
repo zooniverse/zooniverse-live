@@ -63,15 +63,19 @@
   [app]
   (let [classifications-fn (fn [response] (swap! app assoc :classifications response))
         projects-fn (fn [response] (swap! app assoc :projects (project-list->map response)))]
-    (request "https://api.zooniverse.org/projects/list" projects-fn)
-    (request "http://event.zooniverse.org/classifications/galaxy_zoo?per_page=7" classifications-fn)))
+    (request "https://api.zooniverse.org/projects/list" projects-fn)))
+
+(defn merge-color
+  [projects {:keys [project] :as classification}]
+  (assoc classification :color (get-in projects [(keyword project) :color])))
 
 (defn data-init
   [app]
-  (comment (initial-load app)
-   (let [socket-chan (chan 1 (format-msgs app))
-         socket (js/WebSocket. "ws://event.zooniverse.org/classifications")]
-     (set! (.-onmessage socket) (fn [msg] (go (>! socket-chan msg))))
-     (go-loop [msg (<! socket-chan)]
-       (swap! app update-in [:classifications] conj msg)
-       (recur (<! socket-chan))))))
+  (initial-load app)
+  (let [socket-chan (chan 1 (format-msgs app))
+        socket (js/WebSocket. "ws://event.zooniverse.org/classifications")]
+    (set! (.-onmessage socket) (fn [msg] (go (>! socket-chan msg))))
+    (go-loop [msg (<! socket-chan)]
+      (println (:project msg))
+      (swap! app update-in [:classifications] conj (merge-color (:projects @app) msg))
+      (recur (<! socket-chan)))))

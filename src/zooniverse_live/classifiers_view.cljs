@@ -13,14 +13,9 @@
   [project]
   (str "/images/" project ".jpg"))
 
-(defn merge-color
-  [projects]
-  (fn [{:keys [project] :as classification}]
-    (assoc classification :color (get-in projects [(keyword project) :color]))))
-
 (defn classifications-slice
-  [{:keys [classifications projects]}]
-  (map (merge-color projects) (take-last 7 classifications)))
+  [{:keys [classifications]}]
+  (take-last 7 classifications))
 
 (defn classifier-view
   [{:keys [project color country_code country_name city_name]} owner]

@@ -9,16 +9,24 @@ h1, h2, h3, h4, h5, h6, th, td, caption { font-weight: normal; }
 
 img { border: 0; }
 
-body: {
+/*
+body {
   line-height: 0;
   margin: 0;
   font-size: 0;
   letter-spacing: -1;
 }
+*/
 
 
-#map {
-  display: inline-block;
+.world-map {
+  width: 100%;
+  height: auto;
+}
+
+.country path {
+  fill: #C0C0C0;
+  stroke: none;
 }
 
 #projects {
@@ -71,7 +79,6 @@ body: {
   color: white;
   text-align: center;
   margin: 0;
-  vertical-align: center;
 }
 
 #classifications .classification {
