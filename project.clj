@@ -2,7 +2,7 @@
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
 
-  :dependencies [[org.clojure/clojure "1.7.0-alpha1"]
+  :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "0.0-2850"]
                  [prismatic/om-tools "0.3.11"]
                  [figwheel "0.2.5-SNAPSHOT"]
