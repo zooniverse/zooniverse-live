@@ -32,6 +32,9 @@ body {
 
 #header {
     color: lime;
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
 
 #map {
