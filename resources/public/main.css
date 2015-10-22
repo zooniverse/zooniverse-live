@@ -18,10 +18,31 @@ body {
 }
 */
 
+body {
+    font-family: 'Titillium Web', sans-serif;
+    background: #132f63;
+    color: white;
+}
+
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#header {
+    color: lime;
+}
+
+#map {
+    width: 80%;
+}
 
 .world-map {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    min-width: 300px;
+    height: auto;
+    background: #132f63;
 }
 
 .country path {
@@ -33,6 +54,7 @@ body {
   vertical-align: top;
   display: inline-block;
   width: 20%;
+  min-width: 200px;
 }
 
 #projects ul {
@@ -69,11 +91,6 @@ body {
   font-size: 18px;
 }
 
-/*
-#classifications {
-  vertical-align: bottom;
-}
-*/
 
 #classifications h2 {
   color: white;
@@ -102,7 +119,6 @@ body {
 
 .classifier-view-item {
   background-color: grey;
-  flex-grow: 1;
   overflow: auto;
   display: inline-block;
   width: 14%;
