@@ -5,7 +5,6 @@
             [cljs.core.async :refer [<! >! chan]])
   (:require-macros [cljs.core.async.macros :refer [go-loop go]]))
 
-
 (enable-console-print!)
 
 (def project-blacklist #{"hard_cell" "cancer_gene_runner"})

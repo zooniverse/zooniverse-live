@@ -55,7 +55,9 @@
     om/IRender
     (render [_]
       (dom/circle {:className (str "classifier-loc " project)
-                   :r 2 :cy (lat->svg-y latitude) :cx (long->svg-x longitude)
+                   :r 5
+                   :cy (lat->svg-y latitude)
+                   :cx (long->svg-x longitude)
                    :fill color}))))
 
 (defn world-map

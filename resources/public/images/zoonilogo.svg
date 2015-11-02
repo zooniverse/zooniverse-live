@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="36" height="30" viewBox="0 0 36 30">
   <defs>
     <style>
-
       .cls-2 {
-        fill: lime;
+        fill: #E4C460;
       }
     </style>
   </defs>

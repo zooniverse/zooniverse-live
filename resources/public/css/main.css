@@ -2,7 +2,7 @@
 
 html, body, div, form, fieldset, legend, label {
   margin: 0;
-  padding: 0; 
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6, th, td, caption { font-weight: normal; }
@@ -20,8 +20,8 @@ body {
 
 body {
     font-family: 'Titillium Web', sans-serif;
-    background: #132f63;
-    color: white;
+    background: #EAF1F2;
+    color: #555A74;
 }
 
 
@@ -31,21 +31,20 @@ body {
 }
 
 #header {
-    color: lime;
     position: absolute;
     top: 10px;
     left: 10px;
 }
 
 #map {
-    width: 80%;
+    width: 100%;
 }
 
 .world-map {
     width: 100%;
     min-width: 300px;
     height: auto;
-    background: #132f63;
+    background: #EAF1F2;
 }
 
 .country path {
@@ -58,6 +57,8 @@ body {
   display: inline-block;
   width: 20%;
   min-width: 200px;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 #projects ul {
@@ -94,6 +95,10 @@ body {
   font-size: 18px;
 }
 
+
+#classifications {
+    overflow-x: hidden;
+}
 
 #classifications h2 {
   color: white;
@@ -134,4 +139,11 @@ body {
 
 .classifier-view-item img {
   width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+    /* hide icon text, too crowded for it*/
+    .classifier-view-item h2 {
+        display: none;
+    }
 }
