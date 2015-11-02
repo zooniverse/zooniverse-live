@@ -4,14 +4,13 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.122"]
-                 [prismatic/om-tools "0.3.11"]
+                 [prismatic/om-tools "0.3.12"]
                  [lein-figwheel "0.4.1"]
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
+                 [org.clojure/core.async "0.2.371"]
                  [org.omcljs/om "0.8.8"]]
 
-  :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]
-            [lein-figwheel "0.4.1"]
-            [lein-figwheel "0.2.5-SNAPSHOT"]]
+  :plugins [[lein-cljsbuild "1.1.1-SNAPSHOT"]
+            [lein-figwheel "0.4.1"]]
 
   :source-paths ["src"]
 
@@ -33,6 +32,11 @@
                                    :main zooniverse-live.core
                                    :optimizations :advanced
                                    :pretty-print false}}]}
+
+  :profiles {:dev {:dependencies [[com.cemerick/piggieback "0.2.1"]
+                                  [org.clojure/tools.nrepl "0.2.10"]]
+                   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
+
   :figwheel {
              :http-server-root "public" ;; default and assumes "resources"
              :server-port 3449 ;; default
