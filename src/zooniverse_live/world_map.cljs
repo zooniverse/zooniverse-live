@@ -62,11 +62,13 @@
 
 (defn world-map
   "Draws a world map and plots classifications on it"
-  [data owner]
+  [{:keys [showing] :as data} owner]
   (reify
     om/IRender
     (render [_]
-      (dom/svg {:className "world-map" :ref "c" :viewBox (str "0 0" " " width " " height)}
+      (dom/svg {:className (str "world-map" (when (:classifiers showing) " small"))
+                :ref "c"
+                :viewBox (str "0 0" " " width " " height)}
                (om/build-all draw-land (:map-data data))
                (dom/g {:className "classifiers"}
                      (om/build-all classifiers (take-last 100 (:classifications data))))))))

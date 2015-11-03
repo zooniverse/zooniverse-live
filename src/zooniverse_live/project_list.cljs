@@ -27,7 +27,7 @@
 
 (defn project-list
   "Om component for new project-list"
-  [data owner]
+  [{:keys [showing] :as data} owner]
   (reify
     om/IInitState
     (init-state [_]
@@ -50,7 +50,7 @@
           (recur (<! edit-mode)))))
     om/IRenderState
     (render-state [this {:keys [disable edit-mode color]}]
-      (dom/div
+      (dom/div {:className (str "projects" (when-not (:projects showing) " hidden"))}
        (dom/div {:className "projects-title"}
                 (dom/h1 "Projects")
                 (dom/button {:type "button" :onClick (put-to-chan edit-mode true)} "Edit"))

@@ -75,6 +75,6 @@
         socket (js/WebSocket. "ws://event.zooniverse.org/classifications")]
     (set! (.-onmessage socket) (fn [msg] (go (>! socket-chan msg))))
     (go-loop [msg (<! socket-chan)]
-      (println (:project msg))
+      #_(println (:project msg))
       (swap! app update-in [:classifications] conj (merge-color (:projects @app) msg))
       (recur (<! socket-chan)))))

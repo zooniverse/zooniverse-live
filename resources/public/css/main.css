@@ -9,32 +9,57 @@ h1, h2, h3, h4, h5, h6, th, td, caption { font-weight: normal; }
 
 img { border: 0; }
 
-/*
 body {
-  line-height: 0;
-  margin: 0;
-  font-size: 0;
-  letter-spacing: -1;
-}
-*/
-
-body {
-    font-family: 'Titillium Web', sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     background: #EAF1F2;
     color: #555A74;
+    overflow: hidden;
 }
-
-
 .flex {
     display: flex;
     flex-wrap: wrap;
 }
 
-#header {
+.main-header {
     position: absolute;
     top: 10px;
     left: 10px;
 }
+
+.main-header button {
+    background: none;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    color: #555A74;
+    padding: 0;
+    margin: 10px;
+    font-size: 18px;
+    display: block;
+}
+
+.main-header button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.main-header img {
+    margin-right: 10px;
+    vertical-align: sub;
+}
+
+.main-header h1 {
+    color: rgb(51, 76, 122);
+    font-weight: 600;
+    margin: 0;
+    display: inline;
+}
+
+.main-header h1 > span:last-child {
+    color: #FC4541;
+    font-style: italic;
+}
+
 
 #map {
     width: 100%;
@@ -43,8 +68,15 @@ body {
 .world-map {
     width: 100%;
     min-width: 300px;
-    height: auto;
+    max-height: 100vh;
     background: #EAF1F2;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+
+}
+
+.world-map.small {
+    max-height: 80vh;
 }
 
 .country path {
@@ -52,70 +84,91 @@ body {
   stroke: none;
 }
 
-#projects {
+.projects {
   vertical-align: top;
   display: inline-block;
-  width: 20%;
   min-width: 200px;
-  max-height: 600px;
+  max-width: 20%;
+  height: 50vh;
+  width: 220px;
+  background: rgba(192, 192, 192, 0.3);
+  padding: 5px;
+  box-sizing: border-box;
   overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
 }
 
-#projects ul {
+.projects.hidden {
+    right: -220px;
+}
+
+.projects ul {
   margin: 0;
   padding-left: 20px;
   list-style-type: none;
 }
 
-#projects .projects-title {
-  width: 250px;
-}
-
-#projects .projects-title h1 {
+.projects .projects-title h1 {
   display: inline;
   margin: 0;
 }
 
-#projects .editor {
+.projects .editor {
   display: none;
 }
 
-#projects .edit .editor {
+.projects .edit .editor {
   display: block;
 }
 
-#projects .projects-title button {
+.projects .projects-title button {
   display: inline;
   margin-left: 20px;
   position: relative;
   top: -5px;
 }
 
-#projects li {
+.projects li {
   font-size: 18px;
 }
 
 
-#classifications {
+.classifiers {
     overflow-x: hidden;
+    position: absolute;
+    top: calc(80vh - 10px);
+    min-width: 800px;
+    left: 50%;
+    transform: translate(-50%);
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
 }
 
-#classifications h2 {
+.classifiers.hidden {
+    top: 100%;
+}
+
+.classifiers h2 {
   color: white;
   text-align: center;
   margin: 0;
 }
 
-#classifications .classification {
+.classifiers .classification {
   border: 3px solid;
   box-sizing: border-box;
 }
 
+
 .classifiers-view {
   position: relative;
   left: -3%;
-  display: flex;
   width: 110%;
+  display: flex;
   overflow: hidden;
   padding: 0;
   max-height: 265px;

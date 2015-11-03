@@ -28,10 +28,10 @@
                        (dom/img {:src (image-src project)}))))))
 
 (defn classifiers-view
-  [app owner]
+  [{:keys [showing] :as app} owner]
   (reify
     om/IRender
     (render [this]
-      (dom/div (dom/h1 "Classifiers")
+      (dom/div {:className (str "classifiers" (when-not (:classifiers showing) " hidden"))}
                (dom/ul {:className "classifiers-view"}
                        (om/build-all classifier-view (classifications-slice app)))))))
