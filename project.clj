@@ -29,10 +29,11 @@
                        {:id "min"
                         :source-paths ["src"]
                         :compiler {:output-to "resources/public/js/compiled/zooniverse_live.js"
-                                   :main zooniverse-live.core
                                    :optimizations :advanced
-                                   :asset-path "js/compiled/out"
-                                   :pretty-print false}}]}
+                                   :pretty-print false
+                                   :externs ["resources/public/js/worldcountries.js"]
+                                   :main zooniverse-live.core
+                                   :asset-path "js/compiled/out"}}]}
 
   :profiles {:dev {:dependencies [[com.cemerick/piggieback "0.2.1"]
                                   [org.clojure/tools.nrepl "0.2.10"]]
