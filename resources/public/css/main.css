@@ -83,6 +83,11 @@ body {
     max-height: 80vh;
 }
 
+.world-map circle {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
 .country path {
   fill: #C0C0C0;
   stroke: none;
