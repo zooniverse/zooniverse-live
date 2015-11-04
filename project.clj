@@ -31,6 +31,7 @@
                         :compiler {:output-to "resources/public/js/compiled/zooniverse_live.js"
                                    :main zooniverse-live.core
                                    :optimizations :advanced
+                                   :asset-path "js/compiled/out"
                                    :pretty-print false}}]}
 
   :profiles {:dev {:dependencies [[com.cemerick/piggieback "0.2.1"]
