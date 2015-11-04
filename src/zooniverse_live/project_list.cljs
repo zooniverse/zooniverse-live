@@ -53,7 +53,11 @@
       (dom/div {:className (str "projects" (when-not (:projects showing) " hidden"))}
        (dom/div {:className "projects-title"}
                 (dom/h1 "Projects")
-                (dom/button {:type "button" :onClick (put-to-chan edit-mode true)} "Edit"))
+                (dom/button {:type "button" :onClick (put-to-chan edit-mode true)} "Edit")
+                (dom/button {:className "close-button"
+                             :type "button"
+                             :onClick (fn [e] (om/transact! data #(update-in % [:showing :projects] not)))
+                             :dangerouslySetInnerHTML {:__html "&times"}}))
        (dom/ul {:className (when (:edit-mode data) "edit")}
                (om/build-all project
                              (filter #(or (:edit-mode data) (:enabled (second %))) (:projects data))
