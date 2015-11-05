@@ -13,7 +13,8 @@
 (defonce app-state (atom {:classifications []
                           :projects {}
                           :showing {:classifiers false
-                                    :projects false}
+                                    :projects false
+                                    :header-buttons false}
                           :map-data (js->clj (.-features (.-mapdata js/window)) :keywordize-keys true)
                           :edit-mode false}))
 
