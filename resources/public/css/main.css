@@ -39,7 +39,7 @@ body {
 }
 
 .main-header.open .menu-icon {
-     -webkit-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 
@@ -125,8 +125,8 @@ body {
 }
 
 .world-map circle {
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
+    -webkit-transition: color 1s ease;
+    transition: color 1s ease;
 }
 
 .country path {
@@ -206,6 +206,7 @@ body {
     top: calc(80vh - 10px);
     min-width: 800px;
     left: 50%;
+    -webkit-transform: translate(-50%);
     transform: translate(-50%);
     -webkit-transition: all .5s ease;
     transition: all .5s ease;

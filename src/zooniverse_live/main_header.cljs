@@ -13,14 +13,14 @@
     (render [this]
       (dom/div {:className (str "main-header" (when (:header-buttons showing) " open"))}
                (dom/div {:className "title"}
-                        (dom/img {:src "/images/zoonilogo.svg"})
+                        (dom/img {:src "./images/zoonilogo.svg"})
                         (dom/h1 "Zooniverse" (dom/span " Live")))
 
                (dom/button
                 {:type "button"
                  :className "menu-icon"
                  :onClick #(toggle-showing :header-buttons app)}
-                (dom/img {:src "/images/show-menu.svg" :alt "Z"}))
+                (dom/img {:src "./images/show-menu.svg" :alt "Z"}))
 
                (dom/div {:className "menu-items"}
                         (dom/button

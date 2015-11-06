@@ -11,7 +11,7 @@
 
 (defn image-src
   [project]
-  (str "/images/" project ".jpg"))
+  (str "./images/" project ".jpg"))
 
 (defn classifications-slice
   [{:keys [classifications]}]
