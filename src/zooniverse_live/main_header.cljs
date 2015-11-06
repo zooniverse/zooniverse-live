@@ -26,10 +26,8 @@
                         (dom/button
                          {:type "button"
                           :onClick #(toggle-showing :classifiers app)}
-                         "Classifiers")
+                         (count (:classifications app)) " Classifiers")
                         (dom/button
                          {:type "button"
                           :onClick #(toggle-showing :projects app)}
                          "Project Legend"))))))
-
-

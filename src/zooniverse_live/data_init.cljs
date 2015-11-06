@@ -9,6 +9,8 @@
 
 (def project-blacklist #{"hard_cell" "cancer_gene_runner"})
 
+(def classifier-keynum (atom 0))
+
 (defn randint
   [min max]
   (.floor js/Math (-> (.random js/Math)
@@ -38,6 +40,7 @@
         (map trim-newline)
         (filter #(not (or (= %  "Heartbeat") (= % "Stream Start"))))
         (map str->clj)
+        (map #(assoc % :keynum (swap! classifier-keynum inc)))
         (filter #(contains? (enabled-projects @app) (keyword (:project %))))))
 
 (defn request
