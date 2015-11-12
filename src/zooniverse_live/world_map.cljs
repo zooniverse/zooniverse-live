@@ -85,7 +85,7 @@
                    :cx (long->svg-x longitude)
                    :fill color}))))
 
-(defn classifier-key [c idx]
+(defn classifier-key [c]
   (str (:keynum c)  (:latitude c) (:longitude c) (:color c) (:created_at c)))
 
 (defn world-map
@@ -99,5 +99,5 @@
                 :viewBox (str "0 0" " " width " " height)}
                (om/build-all draw-land (:map-data data))
                (dom/g {:className "classifiers"}
-                      (map-indexed #(om/build classifiers %2 {:react-key (classifier-key %2 %1)})
+                      (map #(om/build classifiers % {:react-key (classifier-key %)})
                                    (take-last 100 (:classifications data))))))))
