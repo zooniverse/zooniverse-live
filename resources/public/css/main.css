@@ -267,22 +267,3 @@ body {
 .classifier-view-item img {
   width: 100%;
 }
-
-@media screen and (max-width: 800px) {
-    /* hide icon text, too crowded for it*/
-    .classifier-view-item h2 {
-        display: none;
-    }
-
-    .projects {
-        top: auto;
-    }
-
-    .main-header h1 {
-        font-size: 25px;
-    }
-
-    .world-map {
-        margin-top: 20vh;
-    }
-}
